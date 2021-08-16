@@ -20,4 +20,8 @@ class Employee extends Model
     public function sector(){
         return $this->belongsTo(Sector::class);
     }
+
+    public function report(){
+        return $this->hasMany(ReportEmployee::class,'employee_id');
+    }
 }

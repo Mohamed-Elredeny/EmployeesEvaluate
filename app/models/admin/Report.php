@@ -11,7 +11,7 @@ class Report extends Model
       'name_ar',
       'name_en',
       'date',
-      'sectors'
+      'sector_id'
     ];
     public function questions(){
         return $this->hasMany(Question::class);

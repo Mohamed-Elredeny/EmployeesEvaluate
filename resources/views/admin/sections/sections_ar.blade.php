@@ -9,8 +9,8 @@
                 <span> المسؤلين </span>
             </a>
             <ul class="sub-menu" aria-expanded="false">
-                <li><a href="">عرض الكل</a></li>
-                <li><a href="">اضافة مسؤول جديد</a></li>
+                <li><a href="{{route('admins.index')}}">عرض الكل</a></li>
+                <li><a href="{{route('admins.create')}}">اضافة مسؤول جديد</a></li>
             </ul>
         </li>
         <li>
