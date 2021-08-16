@@ -33,10 +33,16 @@ Route::group(
         Route::get('admin-questions/create/{id}','QuestionsController@create')->name('report.question.create');
         Route::post('admin-questions/store/{id}','QuestionsController@store')->name('report.question.store');
         //Evaluations
-        Route::get('admin-evaluation/{id}','EvaluationsController@index')->name('report.evaluation.show');
-        Route::get('admin-questions/create/{id}','QuestionsController@create')->name('report.evaluation.create');
-        Route::post('admin-questions/store','QuestionsController@store')->name('report.evaluation.store');
-
+        // Route::get('admin-evaluation/{id}','EvaluationsController@index')->name('report.evaluation.show');
+        // Route::get('admin-questions/create/{id}','QuestionsController@create')->name('report.evaluation.create');
+        // Route::post('admin-questions/store','QuestionsController@store')->name('report.evaluation.store');
     });
+
+    Route::resource('admins','admin\AdminController');
+
+    Route::resource('evaluations','admin\EvaluationsController');
+    Route::get('getSectorEmployee', 'admin\EvaluationsController@getSectorEmployee');
+    Route::get('getSectorEmployeeReport', 'admin\EvaluationsController@getSectorEmployeeReport');
+
 
 });
