@@ -17,7 +17,8 @@ class CreateReportsTable extends Migration
             $table->id();
             $table->string('name_ar');
             $table->string('name_en');
-            $table->date('date');
+            $table->date('from');
+            $table->date('to');
             $table->string('sectors');
             $table->timestamps();
         });

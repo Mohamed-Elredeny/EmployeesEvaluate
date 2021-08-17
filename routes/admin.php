@@ -44,5 +44,7 @@ Route::group(
     Route::get('getSectorEmployee', 'admin\EvaluationsController@getSectorEmployee');
     Route::get('getSectorEmployeeReport', 'admin\EvaluationsController@getSectorEmployeeReport');
 
+    Route::any('makeEvaluate', 'admin\EvaluationsController@makeEvaluate')->name('admin.makeEvaluate');
+    Route::any('storeEvaluate', 'admin\EvaluationsController@storeEvaluate')->name('admin.storeEvaluate');
 
 });

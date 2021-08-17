@@ -10,7 +10,8 @@ class Report extends Model
     protected $fillable =[
       'name_ar',
       'name_en',
-      'date',
+      'from',
+      'to',
       'sector_id'
     ];
     public function questions(){
