@@ -20,7 +20,6 @@ class CreateQuestionsTable extends Migration
             $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade');
 
             $table->string('name_ar');
-            $table->string('name_en');
             $table->timestamps();
         });
     }

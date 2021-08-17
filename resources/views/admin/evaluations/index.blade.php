@@ -25,6 +25,11 @@
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
+                    <div class="col-sm-12">
+                        <center>
+                            <button class="btn btn-dark">Add New Questions</button>
+                        </center>
+                    </div>
                     <h5 class="">التقارير</h5>
 
                     <table id="datatable" class="table table-bordered dt-responsive nowrap text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

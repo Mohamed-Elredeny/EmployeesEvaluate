@@ -9,7 +9,6 @@ class Question extends Model
     protected $table ='questions';
     protected $fillable = [
         'name_ar',
-        'name_en',
         'report_id'
     ];
     public function report(){

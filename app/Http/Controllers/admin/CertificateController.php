@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Imports\EmployeesImport;
 use App\Imports\UsersImport;
 use App\models\admin\Certificate;
 use App\models\admin\Employee;
@@ -33,6 +34,18 @@ class CertificateController extends Controller
         return redirect()->back()->with('success', 'updated successfully.');
 
     }
+    public function importEmployees(Request $request)
+    {
+        $request->validate([
+        ]);
+
+        $path = $request->file('file')->getRealPath();
+
+        Excel::import(new EmployeesImport, $path);
+        return redirect()->back()->with('success', 'updated successfully.');
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -19,6 +19,23 @@
                     </div>
                     @endif
                     <h5 class="mb-5 mt-3">اضافة موظف جديد</h5>
+                        <form action="{{route('import.employees')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    استيراد من ملف excel
+                                </div>
+                                <div class="col-sm-4">
+                                    <input type="file" name="file">
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-dark">
+                                        استيراد
+                                    </button>
+                                </div>
+                            </div>
+                            <br><br><br>
+                        </form>
 
                     <form method="post" action="{{route('admin-employees.store')}}" enctype="multipart/form-data">
                         @csrf
@@ -66,14 +83,6 @@
                             <label for="example-text-input" class="col-sm-2 col-form-label"> تاريخ الميلاد</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="date" id="example-text-input" name="birthdate" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">الصورة</label>
-                            <div class="custom-file col-sm-10">
-                                <input name="image" type="file" class="custom-file-input" id="customFileLangHTML" required>
-                                <label class="custom-file-label" for="customFileLangHTML" data-browse="Upload Image"></label>
                             </div>
                         </div>
 

@@ -20,12 +20,12 @@
                     @endif
                     <h5 class="mb-5 mt-3">اضافة تقيم جديد</h5>
 {{-- {{dd($sectors)}} --}}
-                    <form method="post" action="" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.makeEvaluate')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">الادارة</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="sector_id" name="sector_id">
+                                <select class="form-control" id="sector_id" name="sector_id" required>
                                     <option >اختر الادارة</option>
                                     @foreach($sectors as $sector)
                                         <option value="{{$sector->id}}">{{$sector->name_ar}}</option>
@@ -37,7 +37,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">الموظف</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="employee_id" name="employee_id">
+                                <select class="form-control" id="employee_id" name="employee_id" required>
                                     
                                 </select>
                             </div>
@@ -46,7 +46,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">اسم التقرير</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="report_id" name="report_id">
+                                <select class="form-control" id="report_id" name="report_id" required>
                                     
                                 </select>
                             </div>
@@ -54,7 +54,7 @@
 
                         <div class="form-group row">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-dark w-25">Add</button>
+                                <button type="submit" class="btn btn-dark w-25">انشاء تقييم</button>
                             </div>
                         </div>
                     </form>
@@ -93,7 +93,7 @@
                     
                     var employees = document.getElementById('employee_id');
                     
-                    employees.innerHTML = "<option >اختر الموظف</option>";
+                    employees.innerHTML = "<option value='0'>اختر الموظف</option>";
 
                     for(var i = 0; i < data['employees'].length; i++)
                     {
@@ -116,6 +116,7 @@
             $('#employee_id').on('change', function() {
                var id = $(this).val();
                var sector_id = document.getElementById('sector_id').value;
+            //    var sector_id = document.getElementById('sector_id').value;
                console.log(id);
                $.ajax({
                url:'http://127.0.0.1:8000/admin/getSectorEmployeeReport',
@@ -129,7 +130,7 @@
                     
                     var reports = document.getElementById('report_id');
                     
-                    reports.innerHTML = "";
+                    reports.innerHTML = "<option >اختر التقرير</option>";
 
                     // for(var i = 0; i < data['reports'].length; i++)
                     // {
@@ -167,7 +168,10 @@
     // }
 
     // console.log(diff);
-                    data.forEach(report => reports.innerHTML += "<option value="+report.id+">"+report.name_ar+"</option>");
+    if (id != 0) {
+        data.forEach(report => reports.innerHTML += "<option value="+report.id+">"+report.name_ar+"</option>");
+    }
+                    // data.forEach(report => reports.innerHTML += "<option value="+report.id+">"+report.name_ar+"</option>");
                     
                     //console.log(typeof data);
 

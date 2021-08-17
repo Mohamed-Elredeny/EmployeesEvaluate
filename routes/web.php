@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin.login');
 });
 
 Route::get('/certificate', function () {
@@ -29,9 +29,11 @@ Route::get('/tasks', function () {
    return $name[$rand] .  'Task ' . ($rand1 + 1);
 });
 
-Route::get('export', 'DemoController@export')->name('export');
-Route::get('importExportView', 'DemoController@importExportView');
+/*Route::get('export', 'DemoController@export')->name('export');*/
+/*Route::get('importExportView', 'DemoController@importExportView');*/
 Route::post('import', 'admin\CertificateController@import')->name('import');
+Route::post('importEmployees', 'admin\CertificateController@importEmployees')->name('import.employees');
+
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
     $exitCode = Artisan::call('config:cache');

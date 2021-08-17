@@ -31,7 +31,6 @@
 
                             <thead>
                             <tr>
-                                <th>الصورة</th>
                                 <th>الاسم الاول</th>
                                 <th>الاسم الاخير</th>
                                 <th>البريد الإلكتروني</th>
@@ -47,7 +46,6 @@
                             <tbody>
                             @foreach($blogs as $bloggg)
                                 <tr>
-                                    <th><img src="{{asset('assets/site/images/managers/'.$bloggg->image)}}" alt="" style="width:70px;height:70px"></th>
                                     <th>{{$bloggg->fname}}</th>
                                     <th>{{$bloggg->lname}}</th>
                                     <th>{{$bloggg->email}}</th>
@@ -65,9 +63,8 @@
                                                         التحكم
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <a class="btn btn-dark col-sm-12" href="{{route('admin-sectors.show',['admin_sector'=>$bloggg->id])}}">عرض</a><br>
-                                                        <a class="btn btn-dark col-sm-12"  href="{{route('admin-sectors.edit',['admin_sector'=>$bloggg->id])}}">تعديل</a>
-                                                        <form method="post" action="{{route('admin-sectors.destroy',['admin_sector'=>$bloggg->id])}}">
+                                                        <a class="btn btn-dark col-sm-12"  href="{{route('admin-managers.edit',['admin_manager'=>$bloggg->id])}}" target="_blank">تعديل</a>
+                                                        <form method="post" action="{{route('admin-managers.destroy',['admin_manager'=>$bloggg->id])}}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>
