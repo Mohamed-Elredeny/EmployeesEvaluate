@@ -52,9 +52,7 @@ class EmployeeController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInputs($request->all());
         } else {
-            $fileName = $request->image->getClientOriginalName();
-            $imageName = time() . '_' . $fileName ;
-            $request->image->move(public_path('assets/site/images/employees'), $imageName);
+
 
             Employee::create([
                 'fname' => $request->fname,
@@ -64,9 +62,8 @@ class EmployeeController extends Controller
                 'phone' => $request->phone,
                 'birthdate' =>$request->birthdate,
                 'sector_id' => $request->sector_id,
-                'image'=> $imageName,
             ]);
-            return redirect()->route('admin-employees.index')->with('success', 'The Employees has created successfully.');
+            return redirect()->route('admin-employees.index')->with('success', 'تم اضافة الموظف بنجاح');
         }
     }
 
@@ -90,8 +87,9 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
+        $sectors = Sector::get();
         $blog = Employee::find($id);
-        return view('admin.employees.edit', compact('blog'));
+        return view('admin.employees.edit', compact('blog','sectors'));
     }
 
     /**
@@ -103,32 +101,16 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $currentBlog = Employee::find($id);
         $rules = [
-            'fname' => 'required',
-            'lname' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'phone' => 'required',
-            'birthdate' => 'required',
-            'image' => 'required',
-            'sector_id ' => 'required',
+
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         } else {
-            if ($request->image) {
-                unlink(public_path('assets/site/images/employees') .'/' . $currentBlog->image);
 
-                $fileName = $request->image->getClientOriginalName();
-                $imageName = time() . '_' . $fileName ;
-                $request->image->move(public_path('assets/site/images/employees'), $imageName);
-
-            }
-            else{
-                $imageName = $currentBlog->image;
-            }
             $currentBlog->update([
                 'fname' => $request->fname,
                 'lname' => $request->lname,
@@ -136,11 +118,10 @@ class EmployeeController extends Controller
                 'password' => $request->password,
                 'phone' => $request->phone,
                 'birthdate' => $request->birthdate,
-                'sector_id ' => $request->sector_id,
-                'image'=> $imageName,
+                'sector_id' => $request->sector_id,
             ]);
         }
-        return redirect()->route('admin-employees.index')->with('success', 'The Employee has updated successfully.');
+        return redirect()->back()->with('success', 'تم التعديل بنجاح');
 
     }
 
@@ -154,6 +135,6 @@ class EmployeeController extends Controller
     {
         $old = Employee::find($id);
         $old->delete();
-        return redirect()->route('admin-employees.index')->with('success', 'Deleted successfully');
+        return redirect()->back()->with('success', 'تم الحذف بنجاح');
     }
 }

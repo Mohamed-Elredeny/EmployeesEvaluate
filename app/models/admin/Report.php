@@ -9,10 +9,9 @@ class Report extends Model
     protected $table = 'reports';
     protected $fillable =[
       'name_ar',
-      'name_en',
       'from',
       'to',
-      'sector_id'
+      'sectors'
     ];
     public function questions(){
         return $this->hasMany(Question::class);

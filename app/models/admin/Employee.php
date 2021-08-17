@@ -14,7 +14,6 @@ class Employee extends Model
         'password',
         'phone',
         'birthdate',
-        'image',
         'sector_id'
     ];
     public function sector(){

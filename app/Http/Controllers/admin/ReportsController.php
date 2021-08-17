@@ -55,8 +55,8 @@ class ReportsController extends Controller
 
             Report::create([
                 'name_ar' => $request->name_ar,
-                'name_en' => $request->name_en,
-                'date' => $request->date,
+                'from' => $request->from,
+                'to' => $request->to,
                 'sectors' =>$sectors,
             ]);
             return redirect()->route('admin-reports.index')->with('success', 'The Manger has created successfully.');

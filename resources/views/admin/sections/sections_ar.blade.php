@@ -20,7 +20,7 @@
             </a>
             <ul class="sub-menu" aria-expanded="false">
                 <li><a href="{{route('admin-sectors.index')}}">عرض الكل</a></li>
-                <li><a href="{{route('admin-sectors.create')}}">اضافة مديرية جديد</a></li>
+                <li><a href="{{route('admin-sectors.create')}}">اضافة ادارة جديد</a></li>
             </ul>
         </li>
 
@@ -42,7 +42,7 @@
             </a>
             <ul class="sub-menu" aria-expanded="false">
                 <li><a href="{{route('admin-employees.index')}}">عرض الكل</a></li>
-                <li><a href="{{route('admin-employees.create')}}">اضافة مدير جديد</a></li>
+                <li><a href="{{route('admin-employees.create')}}">اضافة موظف جديد</a></li>
             </ul>
         </li>
 

@@ -56,9 +56,6 @@ class ManagerController extends Controller
             return redirect()->back()->withErrors($validator)->withInputs($request->all());
         } else {
 
-            $fileName = $request->image->getClientOriginalName();
-            $imageName = time() . '_' . $fileName ;
-            $request->image->move(public_path('assets/site/images/managers'), $imageName);
 
             Manager::create([
                 'fname' => $request->fname,
@@ -68,9 +65,8 @@ class ManagerController extends Controller
                 'phone' => $request->phone,
                 'birthdate' =>$request->birthdate,
                 'sector_id' => $request->sector_id,
-                'image'=> $imageName,
             ]);
-            return redirect()->route('admin-managers.index')->with('success', 'The Manger has created successfully.');
+            return redirect()->route('admin-managers.index')->with('success', 'تمت الاضافة بنجاح');
         }
     }
 
@@ -94,8 +90,9 @@ class ManagerController extends Controller
      */
     public function edit($id)
     {
+        $sectors = Sector::get();
         $blog = Manager::find($id);
-        return view('admin.managers.edit', compact('blog'));
+        return view('admin.managers.edit', compact('blog','sectors'));
     }
 
     /**
@@ -109,30 +106,12 @@ class ManagerController extends Controller
     {
         $currentBlog = Manager::find($id);
         $rules = [
-            'fname' => 'required',
-            'lname' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'phone' => 'required',
-            'birthdate' => 'required',
-            'image' => 'required',
-            'sector_id ' => 'required',
+
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         } else {
-            if ($request->image) {
-                unlink(public_path('assets/site/images/managers') .'/' . $currentBlog->image);
-
-                $fileName = $request->image->getClientOriginalName();
-                $imageName = time() . '_' . $fileName ;
-                $request->image->move(public_path('assets/site/images/managers'), $imageName);
-
-            }
-            else{
-                $imageName = $currentBlog->image;
-            }
             $currentBlog->update([
                 'fname' => $request->fname,
                 'lname' => $request->lname,
@@ -140,11 +119,10 @@ class ManagerController extends Controller
                 'password' => $request->password,
                 'phone' => $request->phone,
                 'birthdate' => $request->birthdate,
-                'sector_id ' => $request->sector_id,
-                'image'=> $imageName,
+                'sector_id' => $request->sector_id,
             ]);
         }
-        return redirect()->route('admin-managers.index')->with('success', 'The Employee has updated successfully.');
+        return redirect()->back()->with('success', 'تم التعديل بنجاح');
 
     }
 
@@ -158,6 +136,6 @@ class ManagerController extends Controller
     {
         $old = Manager::find($id);
         $old->delete();
-        return redirect()->route('admin-managers.index')->with('success', 'Deleted successfully');
+        return redirect()->back()->with('success', 'تم الحذف بنجاح');
     }
 }

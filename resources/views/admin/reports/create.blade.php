@@ -22,12 +22,7 @@
 
                     <form method="post" action="{{route('admin-reports.store')}}" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">الاسم باللغة الانجليزية</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="example-text-input" name="name_en">
-                            </div>
-                        </div>
+
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">الاسم باللغة العربية</label>
                             <div class="col-sm-10">
@@ -35,12 +30,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">تاريخ التقرير</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">من تاريخ  </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="date" id="example-text-input" name="date">
+                                <input class="form-control" type="date" id="example-text-input" name="from">
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">الي تاريخ  </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="date" id="example-text-input" name="to">
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">الاقسام</label>

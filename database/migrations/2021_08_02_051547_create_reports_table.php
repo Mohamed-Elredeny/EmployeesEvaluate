@@ -16,7 +16,6 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->string('name_ar');
-            $table->string('name_en');
             $table->date('from');
             $table->date('to');
             $table->string('sectors');

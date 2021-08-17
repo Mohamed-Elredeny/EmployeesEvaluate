@@ -32,11 +32,9 @@
                         <thead>
                         <tr>
                             <th>الاسم بالعربية</th>
-                            <th>الاسم بالانجليزية</th>
-                            <th>التاريخ</th>
+                            <th>من تاريخ</th>
+                            <th>الي تاريخ</th>
                             <th>الاسئله</th>
-                            <th>التقييمات</th>
-                            <th>عرض التقرير</th>
                             <th>التحكم</th>
                         </tr>
                         </thead>
@@ -45,14 +43,14 @@
                             @foreach($blogs as $bloggg)
                             <tr>
                             <th>{{$bloggg->name_ar}}</th>
-                            <th>{{$bloggg->name_en}}</th>
-                            <th>{{ date("M -d", strtotime($bloggg->date)) }}</th>
-                            <th>
+                            <th>{{ date("M -d", strtotime($bloggg->from)) }}</th>
+                                <th>{{ date("M -d", strtotime($bloggg->to)) }}</th>
+
+
+                                <th>
 
                                 <a href="{{route('report.question.show',['id'=>$bloggg->id])}}" class="btn btn-dark" target="_blank" >عرض</a>
                             </th>
-                            <th><a href="{{route('report.evaluation.show',['id'=>$bloggg->id])}}" class="btn btn-dark" target="_blank" >عرض</a></th>
-                                <th><a href="{{route('index_filter-employees.index',['filter'=>$bloggg->id])}}" class="btn btn-dark" target="_blank" >عرض</a></th>
 
                                 <th>
                                 <center>
@@ -63,7 +61,6 @@
                                                 التحكم
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="btn btn-dark col-sm-12" href="{{route('admin-sectors.show',['admin_sector'=>$bloggg->id])}}">عرض</a><br>
                                                 <a class="btn btn-dark col-sm-12"  href="{{route('admin-sectors.edit',['admin_sector'=>$bloggg->id])}}">تعديل</a>
                                                 <form method="post" action="{{route('admin-sectors.destroy',['admin_sector'=>$bloggg->id])}}">
                                                     @csrf

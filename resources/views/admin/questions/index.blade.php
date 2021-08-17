@@ -25,15 +25,17 @@
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
+                    <div class="cols-sm-12">
+                        <center>
+                            <a class="btn btn-dark" href="{{route('report.evaluation.create',['id'=>$id])}}" >اضافة اسئله جديدة</a>
+                        </center>
+                    </div>
                     <h5 class="">التقارير</h5>
-
                     <table id="datatable" class="table table-bordered dt-responsive nowrap text-center" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
                         <thead>
                         <tr>
                             <th>الاسم بالعربية</th>
-                            <th>الاسم بالانجليزية</th>
-
                             <th>التحكم</th>
                         </tr>
                         </thead>
@@ -53,8 +55,8 @@
                                                 التحكم
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a class="btn btn-dark col-sm-12"  href="{{route('admin-sectors.edit',['admin_sector'=>$bloggg->id])}}">تعديل</a>
-                                                <form method="post" action="{{route('admin-sectors.destroy',['admin_sector'=>$bloggg->id])}}">
+                                                <a class="btn btn-dark col-sm-12"  href="{{route('report.evaluation.edit',['id'=>$bloggg->id])}}" target="_blank">تعديل</a>
+                                                <form method="post" action="{{route('report.evaluation.destroy',['id'=>$bloggg->id])}}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-dark col-sm-12" >حذف</button>

@@ -8,9 +8,8 @@ class Sector extends Model
 {
     protected $table = 'sectors';
     protected $fillable = [
+        'id',
         'name_ar',
-        'name_en',
         'city',
-        'image'
     ];
 }

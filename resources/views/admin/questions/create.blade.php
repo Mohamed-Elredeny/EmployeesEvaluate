@@ -22,12 +22,7 @@
                     <form method="post" action="{{route('report.question.store',['id'=>$id])}}" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">السوال باللغة الانجليزية</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="example-text-input" name="name_en">
-                            </div>
-                        </div>
+
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">السوال باللغة العربية</label>
                             <div class="col-sm-10">

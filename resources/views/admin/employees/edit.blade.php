@@ -2,7 +2,6 @@
 @section("pageTitle", "Koala Web Libraries")
 @section("content")
 
-
     @if(LaravelLocalization::getCurrentLocale() == 'ar')
     <div class="row">
         <div class="col-12">
@@ -22,38 +21,57 @@
                     @endif
                     <h5 class="mb-5 mt-3">تعديل بيانات الادارة</h5>
 
-                    <form method="post" action="{{route('admin-sectors.update',['admin_sector'=>$blog->id])}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin-employees.update',['admin_employee'=>$blog->id])}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">الادارة باللغة الانجليزية</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">الاسم الاول</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="example-text-input" name="name_en" value="{{$blog->name_en}}" required>
+                                <input class="form-control" type="text" id="example-text-input" name="fname" required value="{{$blog->fname}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">الادارة باللغة العربية</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">الاسم الاخير</label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="example-text-input" name="name_ar" value="{{$blog->name_ar}}" required>
+                                <input class="form-control" type="text" id="example-text-input" name="lname" required value="{{$blog->lname}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">المدينة</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="example-text-input" name="city" value="{{$blog->city}}" required>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">الصورة</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">الادارة</label>
+                            <div class="col-sm-5">
 
-                            <div class="custom-file col-sm-10">
-                                <input name="image" type="file" class="custom-file-input" id="customFileLangHTML">
-                                <label class="custom-file-label" for="customFileLangHTML" data-browse="تعديل الصورة"></label>
+                                <select class="form-control"  name="sector_id" required>
+                                    <option value="{{$blog->sector->id}}" selected>{{$blog->sector->name_ar}}</option>
+                                @foreach($sectors as $sector)
+                                    @if($sector->id != $blog->sector->id)
+                                        <option value="{{$sector->id}}">{{$sector['name_'.LaravelLocalization::getCurrentLocale()]}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">البريد الإلكتروني</label>
                             <div class="col-sm-10">
-                                <img width="300" height="300" src="{{asset('assets/site/images/sectors')}}/{{$blog->image}}">
+                                <input class="form-control" type="email" id="example-text-input" name="email" required value="{{$blog->email}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label">الرقم السري </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="example-text-input" name="password" required value="{{$blog->password}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label"> رقم الهاتف </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="number" id="example-text-input" name="phone" required value="{{$blog->phone}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-text-input" class="col-sm-2 col-form-label"> تاريخ الميلاد</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="date" id="example-text-input" name="birthdate" required value="{{$blog->birthdate}}">
                             </div>
                         </div>
 
