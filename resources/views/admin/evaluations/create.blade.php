@@ -168,9 +168,17 @@
     // }
 
     // console.log(diff);
-    if (id != 0) {
-        data.forEach(report => reports.innerHTML += "<option value="+report.id+">"+report.name_ar+"</option>");
+
+    for(var i = 0; i < data.length; i++)
+    {
+        if (data[i]['report'] && id != 0 ) {
+            reports.innerHTML += "<option value="+data[i]['report'].id+">"+data[i]['report'].name_ar+"</option>";
+        }
     }
+
+    // if (id != 0 ) {
+    //     data.forEach(report => reports.innerHTML += "<option value="+report['report'].id+">"+report['report'].name_ar+"</option>");
+    // }
                     // data.forEach(report => reports.innerHTML += "<option value="+report.id+">"+report.name_ar+"</option>");
                     
                     //console.log(typeof data);

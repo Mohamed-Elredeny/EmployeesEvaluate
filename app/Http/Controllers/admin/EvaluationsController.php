@@ -8,6 +8,7 @@ use App\models\admin\Employee;
 use App\models\admin\Question;
 use App\models\admin\Report;
 use App\models\admin\ReportEmployee;
+use App\models\admin\ReportSector;
 use App\models\admin\Sector;
 use App\models\admin\UserAnswer;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class EvaluationsController extends Controller
     public function getSectorEmployee(Request $request)
     {
         $employees = Employee::where('sector_id', $request->sector_id)->with('report')->get();
-        $reports = Report::where('sector_id', $request->sector_id)->count();
+        $reports = ReportSector::where('sector_id', $request->sector_id)->count();
         //return $employees ;
         return response()->json(['employees' => $employees , 'reports' => $reports]);
     }
@@ -50,12 +51,24 @@ class EvaluationsController extends Controller
     {
         $today = date('Y-m-d');
 
+        // $reportsEmployee = ReportEmployee::select('report_id')->where('employee_id', $request->employee_id)->get();
+        // $reports =Report::where('sector_id', $request->sector_id)
+        //                 ->whereDate('from','<=', $today)
+        //                 ->whereDate('to','>=', $today)
+        //                 ->whereNotIn(
+        //                     'id',
+        //                     $reportsEmployee
+        //                 )
+        //                 ->get();
+
         $reportsEmployee = ReportEmployee::select('report_id')->where('employee_id', $request->employee_id)->get();
-        $reports =Report::where('sector_id', $request->sector_id)
-                        ->whereDate('from','<=', $today)
-                        ->whereDate('to','>=', $today)
+        $reports =ReportSector::where('sector_id', $request->sector_id)
+                        ->with(["report" => function ($query){
+                            $query->whereDate('to','>=', date('Y-m-d'))
+                            ->whereDate('from','<=', date('Y-m-d'));   
+                        }])
                         ->whereNotIn(
-                            'id',
+                            'report_id',
                             $reportsEmployee
                         )
                         ->get();

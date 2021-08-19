@@ -57,7 +57,7 @@
             </ul>
         </li>
         <li>
-            <a href="{{ LaravelLocalization::getLocalizedURL('ar') }}">
+            <a href="{{route('evaluations.create')}}">
                 <i class="fas fa-address-book"></i>
                 <span> تقييم موظف جديد </span>
             </a>

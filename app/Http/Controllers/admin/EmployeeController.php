@@ -20,7 +20,8 @@ class EmployeeController extends Controller
         $blogs = Employee::get();
         return view('admin.employees.index',compact('blogs'));
     }
-     public function index_filter($filter)
+
+    public function index_filter($filter)
     {
         $blogs = Employee::where('sector_id',$filter)->get();
         return view('admin.employees.index',compact('blogs'));

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\models\admin\Manager;
 use App\models\admin\Report;
+use App\models\admin\ReportSector;
 use App\models\admin\Sector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -51,14 +52,21 @@ class ReportsController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInputs($request->all());
         } else {
-            $sectors = implode(',',$request->flexCheckDefault);
-
-            Report::create([
+            // $sectors = implode(',',$request->flexCheckDefault);
+            $report_id = Report::insertGetId([
                 'name_ar' => $request->name_ar,
                 'from' => $request->from,
                 'to' => $request->to,
-                'sectors' =>$sectors,
+                // 'sectors' =>$sectors,
             ]);
+            
+            for($i = 0; $i< count($request->flexCheckDefault); $i++)
+            {
+                ReportSector::create([
+                    'report_id' => $report_id,
+                    'sector_id' => $request->flexCheckDefault[$i],
+                ]);
+            }
             return redirect()->route('admin-reports.index')->with('success', 'The Manger has created successfully.');
         }
     }

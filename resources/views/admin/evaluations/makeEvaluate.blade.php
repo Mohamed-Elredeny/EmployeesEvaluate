@@ -51,7 +51,7 @@
                                 @for($i=0; $i <count($answers); $i++)
                                 <th>
                                     <center>
-                                        <input type="radio" id="switch3{{$question->id}}{{$i}}" name="question{{$question->id}}" value="{{$question->id}}|{{$i}}" switch="success" checked/>
+                                        <input type="radio" id="switch3{{$question->id}}{{$i}}" name="question{{$question->id}}" value="{{$question->id}}|{{$answers[$i]->id}}" switch="success" checked/>
                                         <label for="switch3{{$question->id}}{{$i}}" data-on-label="نعم" data-off-label="لا"></label>
                                     </center>
                                 </th>

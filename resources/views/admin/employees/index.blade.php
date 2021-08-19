@@ -37,10 +37,10 @@
                             <th>الرقم السري</th>
                             <th>رقم الهاتف</th>
                             <th>تاريخ الميلاد</th>
-                            <th>اسم القسم</th>
+                            <th>الادارة</th>
                             <th>عرض التقارير</th>
 
-                            <th>اضافة تقييم</th>
+                            {{-- <th>اضافة تقييم</th> --}}
 
                             <th>التحكم</th>
                         </tr>
@@ -56,8 +56,10 @@
                             <th>{{$bloggg->phone}}</th>
                             <th>{{$bloggg->birthdate}}</th>
                             <th>{{$bloggg->sector['name_'.LaravelLocalization::getCurrentLocale()]}}</th>
-                            <th><a href="" class="btn btn-dark">عرض</a></th>
-                            <th><a href="" class="btn btn-dark">اضافة</a></th>
+                            <th>
+                                <a class="btn btn-dark col-sm-12" data-toggle="modal" data-target="#advandage{{$bloggg->id}}">عرض</a><br>
+                            </th>
+                            {{-- <th><a href="" class="btn btn-dark">اضافة</a></th> --}}
 
                                 <th>
                                 <center>
@@ -89,24 +91,45 @@
             </div>
         </div> <!-- end col -->
     </div>
-    @foreach($blogs as $blogg)
-    <div class="modal fade" id="course{{$blogg->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="courseLabel{{$blogg->id}}" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header backgroundColor text-white" style="border:none">
-                <h5 class="modal-title" style="color: black" id="courseLabel{{$blogg->id}}">الموضوع</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body backgroundColorSec p-5">
-                <?php $x = html_entity_decode($blogg->description_ar); echo $x ?>
-
-            </div>
-
+    @foreach($blogs as $blog)
+        <div class="modal fade" id="advandage{{$blog->id}}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="advandageLabel{{$blog->id}}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header backgroundColor text-white" style="border:none">
+                    <h5 class="modal-title" style="color: black" id="advandageLabel{{$blog->id}}">hgjrvdv</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body backgroundColorSec p-5">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">اسم التقرير</th>
+                            <th scope="col">التاريخ</th>
+                            <th scope="col">عرض التقيم</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @for($i=0; $i<count($blog->report);$i++)
+                        <tr>
+                            
+                            <td>{{$blog->report[$i]->report->name_ar}}</td>
+                            <td>
+                                {{$blog->report[$i]->created_at}}
+                            </td>
+                            <td> 
+                                <a class="btn btn-dark col-sm-12" >عرض</a>
+                            </td>
+                        </tr>
+                        @endfor
+                        </tbody>
+                    </table>                
+                </div>
+                
+                </div>
             </div>
         </div>
-    </div>
     @endforeach
 
 @endif
