@@ -2,11 +2,16 @@
 
 namespace App\models\admin;
 
-use Illuminate\Database\Eloquent\Model;
+/*use Illuminate\Database\Eloquent\Model;*/
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Employee extends Model
+class Employee extends Authenticatable
 {
+    use Notifiable;
+    protected $guard = 'employee';
     protected $table ='employees';
+
     protected $fillable = [
         'fname',
         'lname',

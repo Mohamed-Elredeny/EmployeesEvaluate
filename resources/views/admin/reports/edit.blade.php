@@ -3,7 +3,6 @@
 @section("content")
 
 
-    @if(LaravelLocalization::getCurrentLocale() == 'ar')
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -22,15 +21,9 @@
                     @endif
                     <h5 class="mb-5 mt-3">تعديل بيانات الادارة</h5>
 
-                    <form method="post" action="{{route('admin-sectors.update',['admin_sector'=>$blog->id])}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin-reports.update',['admin_report'=>$blog->id])}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">الادارة باللغة الانجليزية</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="text" id="example-text-input" name="name_en" value="{{$blog->name_en}}" required>
-                            </div>
-                        </div>
                         <div class="form-group row">
                             <label for="example-text-input" class="col-sm-2 col-form-label">الادارة باللغة العربية</label>
                             <div class="col-sm-10">
@@ -38,24 +31,38 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">المدينة</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">من تاريخ  </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="example-text-input" name="city" value="{{$blog->city}}" required>
+                                <input class="form-control" type="date" id="example-text-input" name="from" value="{{$blog->from}}">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-sm-2 col-form-label">الصورة</label>
+                            <label for="example-text-input" class="col-sm-2 col-form-label">الي تاريخ  </label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="date" id="example-text-input" name="to" value="{{$blog->to}}">
+                            </div>
+                        </div>
+                        <div class="form-group row text-center" >
+                            <table class="table">
+                            <tr>
+                                <th>القسم</th>
+                                <th>حذف</th>
+                            </tr>
+                                @foreach($blog->ReportSector as $report_sectors)
+                                    <tr>
+                                        <th>
+                                            {{$report_sectors->report->name_ar}}
+                                        </th>
 
-                            <div class="custom-file col-sm-10">
-                                <input name="image" type="file" class="custom-file-input" id="customFileLangHTML">
-                                <label class="custom-file-label" for="customFileLangHTML" data-browse="تعديل الصورة"></label>
-                            </div>
+                                        <th>
+                                            <a href="{{route('delete.report.sector.redeny',['id'=>$report_sectors->id])}}" class="btn btn-danger">حذف القسم</a>
+                                        </th>
+                                    </tr>
+                                @endforeach
+
+                        </table>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <img width="300" height="300" src="{{asset('assets/site/images/sectors')}}/{{$blog->image}}">
-                            </div>
-                        </div>
+
 
                         <div class="form-group row">
                             <div class="col-12 text-center">
@@ -67,77 +74,7 @@
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
-@else
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                @endif
-                @if ($message = Session::get('error'))
-                <div class="alert alert-danger alert-block">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>{{ $message }}</strong>
-                </div>
-                @endif
-                <h5 class="mb-5 mt-3">تعديل {{$blog->title_ar}}</h5>
 
-                <form method="post" action="{{route('blogs.update',['blog'=>$blog->id])}}">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">Title In English</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="title_en" value="{{$blog->title_en}}" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">Title In Arabic</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="title_ar" value="{{$blog->title_ar}}" required>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">Writer</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" type="text" id="example-text-input" name="writer" value="{{$blog->writer}}" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Description In English</label>
-                        <div class="col-sm-10">
-                            <textarea id="elm1" class="elm1" name="description_en" required><?php $x = html_entity_decode($blog->description_en); echo $x ?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="exampleFormControlTextarea1" class="col-sm-2 col-form-label">Description In Arabic</label>
-                        <div class="col-sm-10">
-                            <textarea id="elm1" class="elm1" name="description_ar" required><?php $x = html_entity_decode($blog->description_ar); echo $x ?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="example-text-input" class="col-sm-2 col-form-label">Image</label>
-                        <div class="custom-file col-sm-10">
-                            <input name="image" type="file" class="custom-file-input" id="customFileLangHTML">
-                            <label class="custom-file-label" for="customFileLangHTML" data-browse="Update Image"></label>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-dark w-25">تعديل</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> <!-- end col -->
-</div> <!-- end row -->
-@endif
 @endsection
 
 

@@ -3,9 +3,11 @@
 namespace App\models\admin;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Manager extends Model
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Manager extends Authenticatable
 {
+    protected $guard ='manager';
     protected $table ='managers';
     protected $fillable = [
         'fname',

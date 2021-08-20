@@ -3,14 +3,23 @@
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
+Route::get('/manager',function(){
+    return view('manager.home');
+})->name('manager.dashboard');
+
+
+Route::get('/employee',function(){
+    return view('employee.home');
+})->name('employee.dashboard');
+
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale() . '/admin',
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+        'prefix' => '/admin',
+        'middleware'=>'auth:admin','auth:employee','auth:manger'
     ], function(){ //...
-    Route::get('/',function(){
-        return view('admin.home');
-    });
+    Route::get('/','admin\HomeController@index')->name('admin.dashboard');
+
+
     Route::resource('certificates','admin\CertificateController');
     Route::get('delete/all','admin\CertificateController@delete_all');
 
@@ -26,7 +35,7 @@ Route::group(
     Route::get('managers/admin-managers/index_filter/{filter}','admin\ManagerController@index_filter')->name('index_filter-managers.index');//Managers Filter
 
     Route::resource('reports/admin-reports','admin\ReportsController');
-
+    Route::get('reports/delete/report/sector/{id}','admin\ReportsController@deleteReportSector')->name('delete.report.sector.redeny');
     Route::group(['prefix'=>'report','namespace'=>'admin'],function(){
         //Questions
         Route::get('admin-questions/{id}','QuestionsController@index')->name('report.question.show');
@@ -45,11 +54,12 @@ Route::group(
     Route::resource('admins','admin\AdminController');
     Route::resource('evaluations','admin\EvaluationsController');
 
-
+    Route::get('/employee/evaluation/{employeeId}/{reportId}', 'admin\EmployeeController@evaluation');
     Route::get('getSectorEmployee', 'admin\EvaluationsController@getSectorEmployee');
     Route::get('getSectorEmployeeReport', 'admin\EvaluationsController@getSectorEmployeeReport');
 
     Route::any('makeEvaluate', 'admin\EvaluationsController@makeEvaluate')->name('admin.makeEvaluate');
     Route::any('storeEvaluate', 'admin\EvaluationsController@storeEvaluate')->name('admin.storeEvaluate');
 
-});
+    Route::get('statistics/{sector_id}','admin\StatisticesController@index');
+    });

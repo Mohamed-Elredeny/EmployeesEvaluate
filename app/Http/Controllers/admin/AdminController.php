@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\models\admin\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -40,7 +41,7 @@ class AdminController extends Controller
         Admin::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
         return redirect()->route('admins.index')->with('success', 'تم اضافة المسؤول بنجاح');
     }
@@ -81,7 +82,7 @@ class AdminController extends Controller
         $admin->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
         ]);
         return redirect()->route('admins.index')->with('success', 'تم تعديل المسؤول بنجاح');
     }

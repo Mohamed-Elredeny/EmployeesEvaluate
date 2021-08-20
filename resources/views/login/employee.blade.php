@@ -41,24 +41,36 @@
                         <div class="p-3" style="text-align:right;direction:rtl">
                             <h4 class="font-size-18 mt-2 text-center">تسجيل الدخول</h4>
 
-                            <form class="form-horizontal" action="index.html">
+                            <form method="POST" action="{{ route('employee.login.submit') }}">
+                                @csrf
                                 <label for="useremail">نوع المستخدم</label>
                                 <div class="form-group">
-                                    <select name="type" id="" class="form-control" >
-                                        <option value="admin">مسئول</option>
-                                        <option value="manager">مدير</option>
+                                    <select name="type" id="menu" class="form-control" onchange="checkUser()">
                                         <option value="employee">موظف</option>
+                                        <option value="admin">مسئول</option>
+                                        <option value="manager">مدير ادارة</option>
 
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="useremail">البريد الإلكتروني</label>
-                                    <input type="email" class="form-control" id="useremail" placeholder="Enter email">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="username">كلمة المرور</label>
-                                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
 
 
@@ -82,8 +94,19 @@
         </div>
     </div>
 </div>
+<script>
+    function checkUser(){
+        var val = document.getElementById('menu').value;
+        if(val === 'admin'){
+            window.location.href = '{{route('admin.login')}}';
+        }else if(val === 'employee'){
+            window.location.href = '{{route('employee.login')}}';
+        }else if (val === 'manager'){
+            window.location.href = '{{route('manager.login')}}';
 
-
+        }
+    }
+</script>
 <!-- JAVASCRIPT -->
 <script src="{{asset('assets/admin/libs/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('assets/admin/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

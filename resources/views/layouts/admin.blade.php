@@ -2,23 +2,7 @@
 <html lang="en">
 
 <head>
-    @if(LaravelLocalization::getCurrentLocale() == 'ar')
-        {{-- <style>
-            *{
-                text-align:right;
-                direction:rtl;
-                font-size:20px;
-                font-weight:bolder
-            }
-            .vertical-menu{
-                right: 11px;
-            }
-            .list-unstyled {
-                padding-right: 0;
-                list-style: none;
-            }
-        </style> --}}
-    @endif
+
     <meta charset="utf-8"/>
     <title>@yield("title", "Ejada")</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,13 +15,8 @@
     <link href="{{asset("assets/admin/css/icons.min.css")}}" rel="stylesheet" type="text/css"/>
     <!-- App Css-->
     @yield("style")
-    @if(LaravelLocalization::getCurrentLocale() == 'ar')
-
     <link href="{{asset("assets/admin/css/app-rtl.css")}}" rel="stylesheet" type="text/css"/>
-    @else
-    <link href="{{asset("assets/admin/css/app.css")}}" rel="stylesheet" type="text/css"/>
 
-    @endif
 
 </head>
 
@@ -88,7 +67,7 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-center">
                         <!-- item-->
-                        <form action="" method="post">
+                        <form action="{{route('logout')}}" method="post">
                             @csrf
                             <input type="submit" value="logout" class="btn btn-danger bx bx-power-off font-size-16 align-middle mr-1">
                         </form>
@@ -103,11 +82,8 @@
     <div class="vertical-menu">
 
         <div data-simplebar class="h-100">
-            @if(LaravelLocalization::getCurrentLocale() == 'ar')
                 @include('admin.sections.sections_ar')
-            @else
-                @include('admin.sections.sections_en')
-            @endif
+
 
         </div>
     </div>
@@ -120,7 +96,6 @@
     @if($errors->any())
         <center><div class="col-sm-12 btn btn-success">{{ implode('', $errors->all()) }}</div></center>
     @endif
-    @if(LaravelLocalization::getCurrentLocale() == 'ar')
         <div class="main-content" style="margin-right: 240px; margin-left: 0%">
 
             <div class="page-content">
@@ -140,28 +115,7 @@
                 </div>
             </footer>
         </div>
-    @else
-        <div class="main-content">
 
-            <div class="page-content">
-                <div class="container-fluid">
-
-                    @yield("content")
-
-                </div> <!-- container-fluid -->
-            </div>
-            <!-- End Page-content -->
-
-
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-
-                    </div>
-                </div>
-            </footer>
-        </div>
-    @endif
 
     <!-- end main content-->
 

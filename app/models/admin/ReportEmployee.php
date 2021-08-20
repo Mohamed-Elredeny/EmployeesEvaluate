@@ -12,8 +12,15 @@ class ReportEmployee extends Model
       'report_id',
     ];
 
+
+
     public function report(){
         return $this->belongsTo(Report::class, 'report_id');
     }
-    
+
+    public function userReport(){
+        return $this->hasMany(UserAnswer::class, 'report_employee_id');
+    }
+
+
 }

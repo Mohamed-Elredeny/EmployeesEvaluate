@@ -4,8 +4,10 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\models\admin\Employee;
+use App\models\admin\ReportEmployee;
 use App\models\admin\Sector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
@@ -59,7 +61,7 @@ class EmployeeController extends Controller
                 'fname' => $request->fname,
                 'lname' => $request->lname,
                 'email' => $request->email,
-                'password' =>$request->password,
+                'password' => Hash::make($request->password),
                 'phone' => $request->phone,
                 'birthdate' =>$request->birthdate,
                 'sector_id' => $request->sector_id,
@@ -116,7 +118,7 @@ class EmployeeController extends Controller
                 'fname' => $request->fname,
                 'lname' => $request->lname,
                 'email' => $request->email,
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
                 'phone' => $request->phone,
                 'birthdate' => $request->birthdate,
                 'sector_id' => $request->sector_id,
@@ -138,4 +140,11 @@ class EmployeeController extends Controller
         $old->delete();
         return redirect()->back()->with('success', 'تم الحذف بنجاح');
     }
+
+    public function evaluation($employeeId, $reportId)
+    {
+        $reportEmployee = ReportEmployee::where('employee_id', $employeeId)->where('report_id', $reportId)->first();
+        return view('admin.employees.evaluation', compact('reportEmployee'));
+    }
+
 }

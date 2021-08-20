@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\models\admin\Employee;
 use App\models\admin\Manager;
 use App\models\admin\Report;
 use App\models\admin\ReportSector;
 use App\models\admin\Sector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ReportsController extends Controller
@@ -59,7 +61,7 @@ class ReportsController extends Controller
                 'to' => $request->to,
                 // 'sectors' =>$sectors,
             ]);
-            
+
             for($i = 0; $i< count($request->flexCheckDefault); $i++)
             {
                 ReportSector::create([
@@ -90,7 +92,9 @@ class ReportsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sectors = Sector::get();
+        $blog = Report::find($id);
+        return view('admin.reports.edit', compact('blog','sectors'));
     }
 
     /**
@@ -102,7 +106,22 @@ class ReportsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $currentBlog = Report::find($id);
+        $rules = [
+
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        } else {
+
+            $currentBlog->update([
+                'name_ar' => $request->name_ar,
+                'from' => $request->from,
+                'to' => $request->to,
+            ]);
+        }
+        return redirect()->back()->with('success', 'تم التعديل بنجاح');
     }
 
     /**
@@ -113,6 +132,13 @@ class ReportsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $old = Report::find($id);
+        $old->delete();
+        return redirect()->back()->with('success', 'تم الحذف بنجاح');
+    }
+    public function deleteReportSector($id){
+        $old = ReportSector::find($id);
+        $old->delete();
+        return redirect()->back()->with('success', 'تم الحذف بنجاح');
     }
 }

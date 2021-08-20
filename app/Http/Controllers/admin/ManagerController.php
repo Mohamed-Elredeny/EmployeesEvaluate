@@ -7,6 +7,7 @@ use App\models\admin\Employee;
 use App\models\admin\Manager;
 use App\models\admin\Sector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller
@@ -61,7 +62,7 @@ class ManagerController extends Controller
                 'fname' => $request->fname,
                 'lname' => $request->lname,
                 'email' => $request->email,
-                'password' =>$request->password,
+                'password' => Hash::make($request->password),
                 'phone' => $request->phone,
                 'birthdate' =>$request->birthdate,
                 'sector_id' => $request->sector_id,
@@ -116,7 +117,7 @@ class ManagerController extends Controller
                 'fname' => $request->fname,
                 'lname' => $request->lname,
                 'email' => $request->email,
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
                 'phone' => $request->phone,
                 'birthdate' => $request->birthdate,
                 'sector_id' => $request->sector_id,

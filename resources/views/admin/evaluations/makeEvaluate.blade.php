@@ -7,7 +7,6 @@
 
 @endsection --}}
 @section("content")
-@if(LaravelLocalization::getCurrentLocale() == 'ar')
 
     <div class="row">
         <div class="col-12">
@@ -37,8 +36,7 @@
                                 <th>
                                     {{$answer->name_ar}}
                                     <br>
-                                    من {{$answer->from}}
-                                    الي {{$answer->to}}
+                                     {{$answer->from}} %
                                 </th>
                                 @endforeach
                             </tr>
@@ -74,9 +72,8 @@
             </div>
         </div> <!-- end col -->
     </div>
-@else
 
-@endif
+
     @endsection
 {{-- @section("script")
 <script src="{{asset("assets/admin/libs/datatables.net/js/jquery.dataTables.min.js")}}"></script>

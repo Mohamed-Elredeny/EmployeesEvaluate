@@ -61,23 +61,13 @@
                 <i class="fas fa-address-book"></i>
                 <span> تقييم موظف جديد </span>
             </a>
-
         </li>
         <li>
-            <a href="{{ LaravelLocalization::getLocalizedURL('ar') }}">
-                <i class="fas fa-language"></i>
-                <span> العربية </span>
+            <a href="{{route('evaluations.create')}}">
+                <i class="fas fa-print"></i>
+                <span> طباعة الاحصائيات </span>
             </a>
-
         </li>
-        <li>
-            <a href="{{ LaravelLocalization::getLocalizedURL('en') }}">
-                <i class="fas fa-language"></i>
-                <span> الانجليزية </span>
-            </a>
-
-        </li>
-
     </ul>
 </div>
 <!-- Sidebar -->
