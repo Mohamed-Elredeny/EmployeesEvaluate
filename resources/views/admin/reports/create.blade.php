@@ -49,7 +49,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="{{$sector->id}}" name="flexCheckDefault[]">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        {{$sector['name_'. LaravelLocalization::getCurrentLocale()]}}
+                                        {{$sector['name_ar']}}
                                     </label>
                                 </div>
                                     @endforeach
@@ -57,10 +57,9 @@
                                     <h6 class="btn-danger text-center">There is no sectors yet</h6>
                                     <a href="{{route('admin-sectors.create')}}">Add New Sector</a>
                                 @endif
-
-
                             </div>
                         </div>
+                        <br><br>
                         <div class="form-group row">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-dark w-25">Add</button>
